@@ -1,29 +1,22 @@
 import React, { useContext } from "react";
-import { PaypalButton } from "react-paypal-button";
+import { PayPalButton } from "react-paypal-button";
 import AppContext from "../context/AppContext";
 import "../styles/components/Payment.css";
 
-const Payments = ({ history }) => {
+const Payment = ({ history }) => {
   const { state, addNewOrder } = useContext(AppContext);
   const { cart, buyer } = state;
 
-  const payPalOptions = {
-    cliendID:
-      "AQ9xgsbYp7o7dwDWOFGOVthQoANJ46c7dkxvLMZQ-_tlB3VV_2JkoNO1QEIWn73KBikn14DERdygPxLg",
+  const paypalOptions = {
+    clientId:
+      "ATN4MgsCVKSXinkSTL1YqlANTikW5fXyo5C7TkyVUG7JB0DTr1G2aabkWFF9Uz6kKo61tL48cfWpomc4",
     intent: "capture",
     currency: "USD",
   };
 
   const buttonStyles = {
     layout: "vertical",
-    shape: "react",
-  };
-
-  const handleSumTotal = () => {
-    const reducer = (accumulator, currentValue) =>
-      accumulator + currentValue.price;
-    const sum = cart.reduce(reducer, 0);
-    return sum;
+    shape: "rect",
   };
 
   const handlePaymentSuccess = (data) => {
@@ -39,6 +32,13 @@ const Payments = ({ history }) => {
     }
   };
 
+  const handleSumTotal = () => {
+    const reducer = (accumulator, currentValue) =>
+      accumulator + currentValue.price;
+    const sum = cart.reduce(reducer, 0);
+    return sum;
+  };
+
   return (
     <div className="Payment">
       <div className="Payment-content">
@@ -52,14 +52,14 @@ const Payments = ({ history }) => {
           </div>
         ))}
         <div className="Payment-button">
-          <PaypalButton
+          <PayPalButton
             paypalOptions={paypalOptions}
-            paypalStyles={buttonStyles}
+            buttonStyles={buttonStyles}
             amount={handleSumTotal()}
             onPaymentStart={() => console.log("Start Payment")}
             onPaymentSuccess={(data) => handlePaymentSuccess(data)}
             onPaymentError={(error) => console.log(error)}
-            onPaymentCancel={(data = console.log(data))}
+            onPaymentCancel={(data) => console.log(data)}
           />
         </div>
       </div>
@@ -68,4 +68,4 @@ const Payments = ({ history }) => {
   );
 };
 
-export default Payments;
+export default Payment;
