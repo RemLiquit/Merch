@@ -9,7 +9,7 @@ const Payment = ({ history }) => {
 
   const paypalOptions = {
     clientId:
-      "ATN4MgsCVKSXinkSTL1YqlANTikW5fXyo5C7TkyVUG7JB0DTr1G2aabkWFF9Uz6kKo61tL48cfWpomc4",
+      "AV5vn69NWi7Q53ee3TyHVPrG2IQLjLiSRWD222oZJo0iLMBy_uaSJeWnTx19UmVWzSewADwLSneKwlEj",
     intent: "capture",
     currency: "USD",
   };
@@ -20,7 +20,6 @@ const Payment = ({ history }) => {
   };
 
   const handlePaymentSuccess = (data) => {
-    console.log(data);
     if (data.status === "COMPLETED") {
       const newOrder = {
         buyer,
